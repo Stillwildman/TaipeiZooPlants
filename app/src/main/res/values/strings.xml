@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TaipeiZooPlants</string>
+
+    <!-- NavigationMenu -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_about">About</string>
+
+    <!-- Common -->
+    <string name="confirm_to_exit">Press \'Back\' again to exit</string>
+
+    <string name="taipei_zoo">台北市立動物園</string>
+
+</resources>

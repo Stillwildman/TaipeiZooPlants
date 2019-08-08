@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+def static getDate() {
+    def date = new Date()
+    return date.format('yyyyMMdd')
+}
+
+def static getJenkinsBuildNumber() {
+    def number = System.getenv("BUILD_NUMBER") as Integer ?: 0
+    return number
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.taipeizooplants"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+
+        project.ext.set("archivesBaseName", "TaipeiZooPlants_" + getDate() + "_v" + versionName + "-" + getJenkinsBuildNumber())
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation "com.google.firebase:firebase-core:17.0.1"
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    implementation 'androidx.paging:paging-runtime:2.1.0'
+}
