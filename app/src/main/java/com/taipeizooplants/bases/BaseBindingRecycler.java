@@ -41,7 +41,7 @@ public abstract class BaseBindingRecycler<Item, BindingView extends ViewDataBind
 
     protected class BindingViewHolder extends RecyclerView.ViewHolder {
 
-        public final BindingView bindingView;
+        protected final BindingView bindingView;
 
         public BindingViewHolder(BindingView bindingView) {
             super(bindingView.getRoot());
