@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 import com.AppController;
@@ -41,6 +43,29 @@ public class Utility {
     public static int getScreenHeight() {
         DisplayMetrics dm = AppController.getInstance().getApplicationContext().getResources().getDisplayMetrics();
         return dm.heightPixels;
+    }
+
+    public static int getActionbarHeight() {
+        Context mContext = AppController.getInstance().getApplicationContext();
+
+        TypedValue tv = new TypedValue();
+
+        int actionBarHeight = 0;
+        int statusBarHeight = 0;
+
+        if (mContext.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, mContext.getResources().getDisplayMetrics());
+        }
+
+        int resourceId = mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
+
+        if (resourceId > 0) {
+            statusBarHeight = mContext.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        Log.d("ActionBarHeight", "ActionBarHeight: " + actionBarHeight + " StatusBarHeight: " + statusBarHeight);
+
+        return actionBarHeight + statusBarHeight;
     }
 
     public static boolean isNetworkEnabled() {

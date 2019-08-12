@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="item"
+            type="com.taipeizooplants.viewmodel.ViewPlantsInfo"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/padding_size_l">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image_plantsPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_place_holder_image_empty"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintDimensionRatio="2:1"/>
+
+                <TextView
+                    android:id="@+id/text_nameCh"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_size_l"
+                    tools:text="0000000"
+                    android:text="@{item.nameCh}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_constraintTop_toBottomOf="@+id/image_plantsPhoto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/text_nameEn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="0000000"
+                    android:text="@{item.nameEn}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nameCh"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_alsoKnowText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_size_xl"
+                    android:text="@string/plants_also_know"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nameEn"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_alsoKnow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="000000000000000"
+                    android:text="@{item.alsoKnow}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_constraintTop_toBottomOf="@+id/text_alsoKnowText"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_briefText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_size_xl"
+                    android:text="@string/plants_brief"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/text_alsoKnow"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_brief"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="000000000000"
+                    android:text="@{item.brief}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_constraintTop_toBottomOf="@+id/text_briefText"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_featureText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_size_xl"
+                    android:text="@string/plants_feature"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/text_brief"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_feature"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="0000000000000"
+                    android:text="@{item.feature}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_constraintTop_toBottomOf="@+id/text_featureText"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_functionText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_size_xl"
+                    android:text="@string/plants_function"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/text_feature"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_function"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="000000"
+                    android:text="@{item.function}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_constraintTop_toBottomOf="@+id/text_functionText"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+                <TextView
+                    android:id="@+id/text_lastUpdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_size_xl"
+                    android:text="@{@string/plants_last_update_is(item.lastUpdate)}"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_700"
+                    android:visibility="@{item.lastUpdateVisibility}"
+                    app:layout_constraintTop_toBottomOf="@+id/text_function"
+                    app:layout_constraintStart_toStartOf="@+id/text_nameCh"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nameCh"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="item"
+            type="com.taipeizooplants.viewmodel.ViewZooVenueInfo"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_white_1000"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="@color/transparent_full">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/padding_size_m"
+                    app:layout_collapseMode="parallax">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/image_venuePhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintDimensionRatio="2:1"/>
+
+                    <TextView
+                        android:id="@+id/text_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_size_l"
+                        tools:text="0000000000000000000"
+                        android:text="@{item.info}"
+                        android:textSize="@dimen/font_text_size_m"
+                        android:textColor="@color/md_grey_800"
+                        app:layout_constraintTop_toBottomOf="@+id/image_venuePhoto"
+                        app:layout_constraintBottom_toTopOf="@+id/text_memo"/>
+
+                    <TextView
+                        android:id="@+id/text_memo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="無休館資訊"
+                        android:text="@{item.memo}"
+                        android:textSize="@dimen/font_text_size_m"
+                        android:textColor="@color/md_grey_800"
+                        app:layout_constraintStart_toStartOf="@+id/text_info"
+                        app:layout_constraintEnd_toEndOf="@+id/text_info"
+                        app:layout_constraintTop_toBottomOf="@+id/text_info"
+                        app:layout_constraintBottom_toTopOf="@+id/text_category"/>
+
+                    <TextView
+                        android:id="@+id/text_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_size_m"
+                        tools:text="室內區"
+                        android:text="@{item.category}"
+                        android:textSize="@dimen/font_text_size_m"
+                        android:textColor="@color/md_grey_800"
+                        app:layout_constraintStart_toStartOf="@+id/text_info"
+                        app:layout_constraintTop_toBottomOf="@+id/text_memo"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/text_openWeb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/open_web_with_browser"
+                        android:textSize="@dimen/font_text_size_m"
+                        android:textColor="@color/md_blue_A400"
+                        android:onClick="@{() -> item.openWebWithBrowser()}"
+                        app:layout_constraintEnd_toEndOf="@+id/text_info"
+                        app:layout_constraintTop_toTopOf="@+id/text_category"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_size_s"
+            android:background="@color/md_grey_300"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/padding_size_m"
+            android:background="@color/md_white_1000"
+            android:scrollbars="vertical"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_plantsInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_size_l"
+                    android:layout_marginStart="@dimen/padding_size_l"
+                    android:layout_marginTop="@dimen/padding_size_m"
+                    android:text="@string/plants_info"
+                    android:textSize="@dimen/font_text_size_m"
+                    android:textColor="@color/md_grey_900"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_plants"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/padding_size_s"
+                    android:scrollbars="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/text_plantsInfo"/>
+
+                <ProgressBar
+                    android:id="@+id/loadingCircle_plants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_size_xxl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

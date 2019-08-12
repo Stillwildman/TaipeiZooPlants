@@ -44,8 +44,3 @@ Thumbs.db
 
 # Keystore files
 *.jks
-
-# Created by .ignore support plugin (hsz.mobi)
-app/DevEnv/
-app/FormalEnv/
-app/TestEnv/

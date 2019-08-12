@@ -1,31 +1,39 @@
 package com.taipeizooplants.bases;
 
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.taipeizooplants.R;
 import com.taipeizooplants.databinding.ActivityMainBinding;
+import com.taipeizooplants.model.CommonConstants;
+import com.taipeizooplants.utilities.DialogHelper;
 import com.taipeizooplants.utilities.Utility;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, CommonConstants {
 
     protected final String TAG = getClass().getSimpleName();
 
     protected abstract void init();
 
-    protected abstract boolean hasMoreThanOneFragment();
+    protected abstract boolean hasFragmentBackStack();
 
-    private ActivityMainBinding mBinding;
+    protected abstract void onUiHandleMessage(Message msg);
 
+    protected ActivityMainBinding mBinding;
+
+    protected ActionBarDrawerToggle toggle;
+
+    private Handler uiHandler;
+
+    private boolean hasInit;
     private long exitTime = 0;
 
     @Override
@@ -34,25 +42,58 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        initDrawer();
-
-        init();
+        initToolbarAndDrawer();
     }
 
-    private void initDrawer() {
+    private void initToolbarAndDrawer() {
         setSupportActionBar(mBinding.includeAppBar.toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mBinding.drawerLayout, mBinding.includeAppBar.toolbar,
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        toggle = new ActionBarDrawerToggle(this, mBinding.drawerLayout, mBinding.includeAppBar.toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         mBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        toggle.setToolbarNavigationClickListener(this);
         mBinding.navView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkNetwork();
+    }
+
+    private void checkNetwork() {
+        if (Utility.isNetworkEnabled()) {
+            if (!hasInit) {
+                init();
+                hasInit = true;
+            }
+        }
+        else {
+            DialogHelper.showNetworkRequestDialog(this);
+        }
     }
 
     protected void showLoadingCircle(boolean isShow) {
         mBinding.includeAppBar.toolbarLoadingCircle.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    public Handler getUiHandler() {
+        if (uiHandler == null)
+            uiHandler = new Handler(Looper.getMainLooper()) {
+                @Override
+                public void handleMessage(Message msg) {
+                    onUiHandleMessage(msg);
+                }
+            };
+        return uiHandler;
     }
 
     protected void finishByDoubleClickBack() {
@@ -66,35 +107,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.nav_home:
-
-                break;
-
-            case R.id.nav_about:
-
-                break;
+    public void onClick(View v) {
+        if (v.getId() == TOOLBAR_BACK) {
+            onBackPressed();
         }
-
-        mBinding.drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = mBinding.drawerLayout;
-
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        else if (hasMoreThanOneFragment()) {
-            super.onBackPressed();
-        }
-        else {
-            finishByDoubleClickBack();
-        }
+        finishByDoubleClickBack();
     }
 }

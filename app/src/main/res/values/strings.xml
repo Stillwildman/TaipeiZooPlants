@@ -8,9 +8,29 @@
     <string name="menu_home">Home</string>
     <string name="menu_about">About</string>
 
-    <!-- Common -->
-    <string name="confirm_to_exit">Press \'Back\' again to exit</string>
+    <!-- Network -->
+    <string name="go_to_setting">前往設定</string>
+    <string name="go_to_wifi_setting">前往WiFi設定</string>
+    <string name="network_is_unable_title">網路連線未開啟</string>
+    <string name="network_is_unable_content">請先開啟網路！</string>
 
+    <!-- Page Title -->
     <string name="taipei_zoo">台北市立動物園</string>
+
+    <!-- Common -->
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="confirm_to_exit">Press \'Back\' again to exit</string>
+    <string name="version">Version: %s</string>
+
+    <string name="open_web_with_browser">在網頁開啟</string>
+    <string name="plants_info">植物資料</string>
+
+    <!-- Plants Info -->
+    <string name="plants_also_know">別名</string>
+    <string name="plants_brief">簡介</string>
+    <string name="plants_feature">辨認方式</string>
+    <string name="plants_function">功能性</string>
+    <string name="plants_last_update_is">最後更新：%s</string>
 
 </resources>
